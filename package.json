@@ -1,0 +1,24 @@
+{
+  "name": "prismagram",
+  "version": "1.0.0",
+  "repository": "git@github.com:Artak-Mkrtchyan/prismagram.git",
+  "author": "Artak-Mkrtchyan <30382535+Artak-Mkrtchyan@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "dotenv": "^8.2.0",
+    "graphql-tools": "^4.0.7",
+    "graphql-yoga": "^1.18.3",
+    "merge-graphql-schemas": "^1.7.6",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^7.0.0-0",
+    "nodemon": "^2.0.2"
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server.js"
+  }
+}
