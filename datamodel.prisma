@@ -4,12 +4,13 @@ type User {
   email: String! @unique
   firstName: String @default(value: "")
   lastName: String
-  bio: String!
+  bio: String
   followers: [User!]! @relation(name: "FollowRelation")
   following: [User!]! @relation(name: "FollowRelation")
   post: [Post!]!
   likes: [Like!]!
   comments: [Comment!]!
+  rooms: [Room!]!
 }
 
 type Post {
@@ -39,4 +40,19 @@ type File {
   id: ID! @id
   url: String!
   post: Post!
+  messages: [Message!]!
+}
+
+type Room {
+  id: ID! @id @unique
+  particopants: [User!]!
+  messages: [Message!]!
+}
+
+type Message {
+  id: ID! @id @unique
+  text: String!
+  from: User! @relation(name: "FROM")
+  to: User! @relation(name: "TO")
+  room: Room!
 }
