@@ -1,12 +1,12 @@
 type User {
-  id: ID! @id 
-  username: String! @unique
-  email: String! @unique
-  firstName: String @default(value: "")
+  id: ID!
+  username: String!
+  email: String!
+  firstName: String
   lastName: String
   bio: String
-  followers: [User!]! @relation(name: "FollowRelation")
-  following: [User!]! @relation(name: "FollowRelation")
+  followers: [User!]!
+  following: [User!]!
   post: [Post!]!
   likes: [Like!]!
   comments: [Comment!]!
@@ -15,7 +15,7 @@ type User {
 }
 
 type Post {
-  id: ID! @id
+  id: ID!
   location: String!
   caption: String!
   user: User
@@ -25,35 +25,35 @@ type Post {
 }
 
 type Like {
-  id: ID! @id
+  id: ID!
   user: User!
   post: Post!
 }
 
 type Comment {
-  id: ID! @id
+  id: ID!
   text: String!
   user: User!
   post: Post!
 }
 
 type File {
-  id: ID! @id
+  id: ID!
   url: String!
   post: Post!
   messages: [Message!]!
 }
 
 type Room {
-  id: ID! @id @unique
+  id: ID!
   particopants: [User!]!
   messages: [Message!]!
 }
 
 type Message {
-  id: ID! @id @unique
+  id: ID!
   text: String!
-  from: User! @relation(name: "FROM")
-  to: User! @relation(name: "TO")
+  from: User!
+  to: User!
   room: Room!
 }
