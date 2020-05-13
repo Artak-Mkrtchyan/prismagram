@@ -8,9 +8,9 @@ type User {
   isFollowing: Boolean!
   isSelf: Boolean!
   bio: String
-  followers: [User!]!
   following: [User!]!
-  post: [Post!]!
+  followers: [User!]!
+  posts: [Post!]!
   likes: [Like!]!
   comments: [Comment!]!
   rooms: [Room!]!
@@ -23,7 +23,7 @@ type Post {
   id: ID!
   location: String
   caption: String!
-  user: User
+  user: User!
   files: [File!]!
   likes: [Like!]!
   comments: [Comment!]!
@@ -60,7 +60,7 @@ type File {
 
 type Room {
   id: ID!
-  particopants: [User!]!
+  participants: [User!]!
   messages: [Message!]!
   createdAt: String
   updatedAt: String

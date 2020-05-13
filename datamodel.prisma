@@ -1,16 +1,16 @@
 type User {
-  id: ID! @id 
+  id: ID! @id
   username: String! @unique
   email: String! @unique
   firstName: String @default(value: "")
   lastName: String
   bio: String
-  followers: [User!]! @relation(name: "FollowRelation")
   following: [User!]! @relation(name: "FollowRelation")
-  post: [Post!]!  @relation(name: "PostsOfUser", onDelete: CASCADE)
-  likes: [Like!]!  @relation(name: "LikesOfUser", onDelete: CASCADE)
-  comments: [Comment!]!  @relation(name: "CommentsOfUser", onDelete: CASCADE)
-  rooms: [Room!]! 
+  followers: [User!]! @relation(name: "FollowRelation")
+  posts: [Post!]! @relation(name: "PostsOfUser", onDelete: CASCADE)
+  likes: [Like!]! @relation(name: "LikesOfUser", onDelete: CASCADE)
+  comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
+  rooms: [Room!]!
   loginSecret: String
 }
 
@@ -19,22 +19,22 @@ type Post {
   location: String
   caption: String!
   user: User @relation(name: "PostsOfUser")
-  files: [File!]! @relation(name: "FilesOfPost" onDelete: CASCADE)
-  likes: [Like!]! @relation(name: "LikesOfPost" onDelete: CASCADE)
-  comments: [Comment!]!
+  files: [File!]! @relation(name: "FilesOfPost", onDelete: CASCADE)
+  likes: [Like!]! @relation(name: "LikeOfPost", onDelete: CASCADE)
+  comments: [Comment!]! @relation(name: "CommentOfPost", onDelete: CASCADE)
 }
 
 type Like {
   id: ID! @id
   user: User @relation(name: "LikesOfUser")
-  post: Post @relation(name: "LikesOfPost")
+  post: Post @relation(name: "LikeOfPost")
 }
 
 type Comment {
   id: ID! @id
   text: String!
   user: User @relation(name: "CommentsOfUser")
-  post: Post!
+  post: Post @relation(name: "CommentOfPost")
 }
 
 type File {
@@ -44,15 +44,15 @@ type File {
 }
 
 type Room {
-  id: ID! @id @unique
-  particopants: [User!]!
+  id: ID! @id
+  participants: [User!]!
   messages: [Message!]!
 }
 
 type Message {
-  id: ID! @id @unique
+  id: ID! @id
   text: String!
-  from: User! @relation(name: "FROM")
-  to: User! @relation(name: "TO")
+  from: User! @relation(name: "From")
+  to: User! @relation(name: "To")
   room: Room!
 }
