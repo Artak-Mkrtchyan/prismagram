@@ -6,7 +6,7 @@ export default {
     editUser: async (_, args, { request }) => {
       isAuthenticated(request);
 
-      const { username, email, firstName, lastName, bio } = args;
+      const { username, email, firstName, lastName, bio, avatar } = args;
       const { user } = request;
 
       return prisma.updateUser({
@@ -16,9 +16,10 @@ export default {
           email,
           firstName,
           lastName,
-          bio
-        }
+          bio,
+          avatar,
+        },
       });
-    }
-  }
+    },
+  },
 };

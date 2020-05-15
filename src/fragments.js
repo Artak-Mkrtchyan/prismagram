@@ -1,6 +1,7 @@
 export const USER_FRAGMENT = `
     id,
-    username
+    username,
+    avatar
 `;
 
 export const COMMENT_FRAGMENT = `
@@ -28,6 +29,15 @@ export const FULL_POST_FRAGMENT = `
       ${COMMENT_FRAGMENT}
     }
     user {
+      ${USER_FRAGMENT}
+    }
+  }
+`;
+
+export const ROOM_FRAGMENT = `
+  fragment RoomParts on Room {
+    id
+    participants {
       ${USER_FRAGMENT}
     }
   }
