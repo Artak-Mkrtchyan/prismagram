@@ -5,6 +5,7 @@
   "author": "Artak-Mkrtchyan <30382535+Artak-Mkrtchyan@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
+    "@babel/compat-data": "^7.14.7",
     "@babel/core": "^7.8.7",
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
@@ -22,12 +23,13 @@
   },
   "devDependencies": {
     "babel-cli": "^7.0.0-0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "prisma1": "^1.33.0"
   },
   "scripts": {
-    "deploy": "prisma deploy",
-    "generate": "prisma generate",
-    "prisma": "yarn run deploy && yarn run generate",
+    "deploy": "prisma1 deploy",
+    "generate": "prisma1 generate",
+    "prisma1": "yarn run deploy && yarn run generate",
     "dev": "nodemon --exec babel-node src/server.js"
   }
 }
