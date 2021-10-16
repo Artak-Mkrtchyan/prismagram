@@ -1,12 +1,13 @@
-import "./env";
-import passport from "passport";
-import { GraphQLServer } from "graphql-yoga";
-import logger from "morgan";
-import "./passport";
-import { uploadMiddleware, uploadController } from "./upload";
-import { sendSecretMail } from "./utils";
-import schema from "./schema";
-import { authenticateJwt } from "./passport";
+import './env';
+import './passport';
+
+import { GraphQLServer } from 'graphql-yoga';
+import logger from 'morgan';
+
+import schema from './schema';
+import { uploadController, uploadMiddleware } from './upload';
+import { authenticateJwt } from './passport';
+
 
 const PORT = process.env.PORT || 4000;
 

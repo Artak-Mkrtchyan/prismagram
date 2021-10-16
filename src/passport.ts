@@ -1,14 +1,16 @@
-import "./env";
-import passport from "passport";
-import { Strategy, ExtractJwt } from "passport-jwt";
-import { prisma } from "../generated/prisma-client";
+import './env';
 
-const jwtOptions = {
+import passport from 'passport';
+import { ExtractJwt, Strategy } from 'passport-jwt';
+
+import { prisma } from '../generated/prisma-client';
+
+export const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.JWT_SECRET
 };
 
-const verifyUser = async (payload, done) => {
+const verifyUser = async (payload: any, done: any) => {
   try {
     const user = await prisma.user({ id: payload.id });
     if (user !== null) {
@@ -21,7 +23,7 @@ const verifyUser = async (payload, done) => {
   }
 };
 
-export const authenticateJwt = (req, res, next) =>
+export const authenticateJwt = (req: any, res: any, next: any) =>
   passport.authenticate("jwt", { session: false }, (error, user) => {
     if (user) {
       req.user = user;

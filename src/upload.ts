@@ -1,6 +1,6 @@
-import multer from "multer";
-import multerS3 from "multer-s3";
-import aws from "aws-sdk";
+import aws from 'aws-sdk';
+import multer from 'multer';
+import multerS3 from 'multer-s3';
 
 const s3 = new aws.S3({
   accessKeyId: process.env.AWS_KEY,
@@ -24,7 +24,7 @@ const upload = multer({
 
 export const uploadMiddleware = upload.single("file");
 
-export const uploadController = (req, res) => {
+export const uploadController = (req: any, res: any) => {
   const {
     file: { location }
   } = req;
