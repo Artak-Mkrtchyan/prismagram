@@ -1,16 +1,18 @@
 import { isAuthenticated } from "../../../middlewares";
-import { prisma } from "../../../../generated/prisma-client";
+import { Context } from '../../../context';
 
 export default {
   Mutation: {
-    addComment: async (_, args, { request }) => {
-      isAuthenticated(request);
+    addComment: async (_: Record<string, unknown>, args: {text: string, postId: string}, context: Context) => {
+      // isAuthenticated(context.req);
       const { text, postId } = args;
-      const { user } = request;
-      const comment = await prisma.createComment({
+      // const { user } = context.req;
+      
+      const comment = await context.prisma.comment.create({
+        data: {
         user: {
           connect: {
-            id: user.id
+            id: "617451b3ed8c38a1185fc7cc"
           }
         },
         post: {
@@ -19,6 +21,7 @@ export default {
           }
         },
         text
+      }
       });
 
       return comment;

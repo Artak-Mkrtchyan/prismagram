@@ -1,13 +1,14 @@
+
+import { Context } from "../../../context";
 import { isAuthenticated } from "../../../middlewares";
-import { prisma } from "../../../../generated/prisma-client";
 
 export default {
   Query: {
-    me: async (_, __, { request }) => {
-      isAuthenticated(request);
+    me: async (_: any, __: any, context: Context) => {
+      isAuthenticated(context.req);
 
-      const { user } = request;
-      return await prisma.user({ id: user.id });
+      const { user } = context.req;
+      return await context.prisma.user.findUnique({where: { id: user.id }});
     },
   },
 };

@@ -1,43 +1,40 @@
+import { Context } from "../../../context";
 import { isAuthenticated } from "../../../middlewares";
-import { prisma } from "../../../../generated/prisma-client";
 
 export default {
   Mutation: {
-    sendMessage: async (_, args, { request }) => {
-      isAuthenticated(request);
-      const { user } = request;
-      const { roomId, message, toId } = args;
-      let room;
-      if (roomId === undefined) {
+    sendMessage: async (_: Record<string, unknown>, args: {channelId?: string, message: string, toId?: string}, context: Context) => {
+      isAuthenticated(context.req);
+      const { user } = context.req;
+      const { channelId, message, toId } = args;
+      let channel; 
+      if (channelId === undefined) {
         if (user.id !== toId) {
-          room = await prisma.createRoom({
+          channel = await context.prisma.channel.create({
+            data: {
             participants: {
               connect: [{ id: toId }, { id: user.id }],
-            },
+            },}
           });
         }
       } else {
-        room = await prisma.room({ id: roomId });
+        channel =  await context.prisma.channel.findUnique({where: { id: channelId }});
       }
-      if (!room) {
-        throw Error("Room not found");
-      }
-      const getTo = room.participants.filter((participant) => participant.id !== user.id)[0];
-      return prisma.createMessage({
+      if (!channel) {
+        throw Error("channel not found");
+      } 
+      return await context.prisma.message.create({
+        data: {
         text: message,
-        from: {
+        user: {
           connect: { id: user.id },
         },
-        to: {
+        channel: {
           connect: {
-            id: roomId ? getTo.id : toId,
+            id: channel.id,
           },
         },
-        room: {
-          connect: {
-            id: room.id,
-          },
-        },
+      }
       });
     },
   },

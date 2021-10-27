@@ -1,0 +1,9 @@
+
+type Message {
+  id: ID!
+  text: String!
+  user: User!
+  channel: Channel!
+  createdAt: String
+  updatedAt: String
+}

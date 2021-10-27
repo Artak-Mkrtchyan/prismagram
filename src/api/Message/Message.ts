@@ -1,9 +1,8 @@
-import { prisma } from "../../../generated/prisma-client";
+import { Context } from '../../context';
 
 export default {
   Message: {
-    from: ({ id }) => prisma.message({ id }).from(),
-    to: ({ id }) => prisma.message({ id }).to(),
-    room: ({ id }) => prisma.message({ id }).room(),
+    channel: ({ id }: {id: string}, args: {}, context: Context) => context.prisma.message.findUnique({where: { id }}).channel(),
+    user: ({ id }: {id: string}, args: {}, context: Context) => context.prisma.message.findUnique({where: { id }}).user(),
   },
 };

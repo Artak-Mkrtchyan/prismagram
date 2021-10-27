@@ -1,25 +1,39 @@
 import './env';
-import './passport';
-
+// import './passport';
 import { GraphQLServer } from 'graphql-yoga';
 import logger from 'morgan';
 
-import schema from './schema';
+import http from "http";
+import express from "express";
+import { ApolloServer } from "apollo-server-express";
+
+import  { resolvers, typeDefs } from './schema';
 import { uploadController, uploadMiddleware } from './upload';
 import { authenticateJwt } from './passport';
+import { createContext } from './context';
+import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 
 
 const PORT = process.env.PORT || 4000;
 
-const server = new GraphQLServer({
-  schema,
-  context: ({ request }) => ({ request })
-});
+// app.use(logger("dev"));
+// apollo.applyMiddleware({app});
+// apollo.applyMiddleware(authenticateJwt);
+// app.post("/api/upload", uploadMiddleware, uploadController);
 
-server.express.use(logger("dev"));
-server.express.use(authenticateJwt);
-server.express.post("/api/upload", uploadMiddleware, uploadController);
+async function startApolloServer(typeDefs: string, resolvers: any, context: any) {
+  const app = express();
+  const httpServer = http.createServer(app);
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    context
+  });
+  await server.start();
+  server.applyMiddleware({ app });
+  await new Promise<void>(resolve => httpServer.listen({ port: PORT }, resolve));
+  console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+}
 
-server.start({ port: PORT }, () =>
-  console.log(`✅ Server running on http://localhost:${PORT}`)
-);
+startApolloServer(typeDefs, resolvers, createContext)

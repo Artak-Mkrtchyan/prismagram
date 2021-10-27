@@ -1,12 +1,13 @@
-import { prisma } from "../../../generated/prisma-client";
+import { Context } from '../../context';
 
 export default {
-  Post: {
-    isLiked: async (parent, _, { request }) => {
-      const { user } = request;
+  Post: { 
+    isLiked: async (parent: any, _: any, context: Context) => {
+      const { user } = context.req;
       const { id } = parent;
 
-      return prisma.$exists.like({
+      return context.prisma.like.findMany({
+        where: {
         AND: [
           { user: { id: user.id } },
           {
@@ -15,28 +16,26 @@ export default {
             },
           },
         ],
+      }
       });
     },
-    likeCount: ({ id }) =>
-      prisma
-        .likesConnection({
+    likeCount: ({ id }: {id: string}, _:any, context: Context) =>
+    context.prisma
+        .like.count({
           where: {
             post: { id },
           },
         })
-        .aggregate()
-        .count(),
-    commentCount: ({ id }) =>
-      prisma
-        .commentsConnection({
+        ,
+    commentCount: ({ id }: {id: string}, _:any, context: Context) =>
+    context.prisma
+        .comment.count({
           where: {
             post: { id },
           },
-        })
-        .aggregate()
-        .count(),
-    files: ({ id }) => prisma.post({ id }).files(),
-    comments: ({ id }) => prisma.post({ id }).comments(),
-    user: ({ id }) => prisma.post({ id }).user(),
+        }),
+    files: ({ id }: {id: string}, _:any, context: Context) => context.prisma.post.findUnique({where: { id }}).files(),
+    comments: ({ id }: {id: string}, _:any, context: Context) => context.prisma.post.findUnique({where: { id }}).comments(),
+    user: ({ id }: {id: string}, _:any, context: Context) => context.prisma.post.findUnique({where: { id }}).user(),
   },
 };

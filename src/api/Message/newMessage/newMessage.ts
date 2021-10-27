@@ -1,26 +1,18 @@
-import { prisma } from "../../../../generated/prisma-client";
+import { Context } from "../../../context";
 
 export default {
-  Subscription: {
+  Mutation: {
     newMessage: {
-      subscribe: (_, args) => {
-        const { roomId } = args;
-        return prisma.$subscribe
-          .message({
-            AND: [
+      subscribe: (_: Record<string, unknown>, args: { channelId: string}, context: Context) => {
+        const { channelId } = args;
+        return context.prisma.message.findMany({
+          where: 
               {
-                mutation_in: "CREATED",
-              },
-              {
-                node: {
-                  room: { id: roomId },
-                },
-              },
-            ],
+                channel: { id: channelId },
+                }
           })
-          .node();
+         ;
       },
-      resolve: (payload) => payload,
     },
   },
 };

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import nodemailer from "nodemailer";
 import sgTransport from "nodemailer-sendgrid-transport";
 import jwt from "jsonwebtoken";

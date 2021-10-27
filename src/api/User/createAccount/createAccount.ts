@@ -1,19 +1,21 @@
-import { prisma } from "../../../../generated/prisma-client";
+import { Context } from "../../../context";
 
 export default {
   Mutation: {
-    createAccount: async (_, args) => {
+    createAccount: async (_: Record<string, unknown>, args: {username: string, email: string,firstName: string, lastName: string, bio: string}, context: Context) => {
       const { username, email, firstName = "", lastName = "", bio = "" } = args;
-      const exists = await prisma.$exists.user({ username });
+      const exists = await context.prisma.user.findUnique({ where: { username }});
       if (exists) {
         throw Error("This username / email is already taken");
       }
-      await prisma.createUser({
+      await context.prisma.user.create({
+        data: {
         username,
         email,
         firstName,
         lastName,
         bio,
+        }
       });
 
       return true;

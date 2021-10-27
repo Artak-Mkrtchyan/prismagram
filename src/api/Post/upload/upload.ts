@@ -1,26 +1,29 @@
-import { prisma } from "../../../../generated/prisma-client";
 import { isAuthenticated } from "../../../middlewares";
+import { Context } from '../../../context';
 
 export default {
   Mutation: {
-    upload: async (_, args, { request }) => {
-      isAuthenticated(request);
-      const { user } = request;
+    upload: async (_: Record<string, unknown>, args: {caption: string, files: string[], location: string}, context: Context) => {
+      isAuthenticated(context.req);
+      const { user } = context.req;
       const { caption, files, location } = args;
-      const post = await prisma.createPost({
+      const post = await context.prisma.post.create({
+        data: {
         user: { connect: { id: user.id } },
         caption,
-        location
+        location}
       });
       files.forEach(
         async (file) =>
-          await prisma.createFile({
+          await await context.prisma.file.create({
+            data: {
             url: file,
             post: {
               connect: {
                 id: post.id,
               },
             },
+          }
           })
       );
 

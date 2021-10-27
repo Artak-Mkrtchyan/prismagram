@@ -1,16 +1,16 @@
-import { generateSecret, sendSecretMail } from "../../../utils";
-import { prisma } from "../../../../generated/prisma-client";
 
+import { Context } from "../../../context";
+import { generateSecret, sendSecretMail } from "../../../utils";
 export default {
   Mutation: {
-    requestSecret: async (_, args, { request }) => {
+    requestSecret: async (_: Record<string, unknown>, args: {email: string}, context: Context) => {
       const { email } = args;
       const loginSecret = generateSecret();
       try {
         console.log('email', email, loginSecret);
         // if you want to get email set the sgTransport options
         // await sendSecretMail(email, loginSecret);
-        await prisma.updateUser({ data: { loginSecret }, where: { email } });
+        await context.prisma.user.update({ data: { loginSecret }, where: { email } });
         return true;
       } catch (error) {
         console.log(error);

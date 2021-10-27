@@ -1,11 +1,11 @@
-import { prisma } from "../../../../generated/prisma-client";
+import { Context} from '../../../context'
 
 export default {
   Query: {
-    seeUser: async (_, args) => {
+    seeUser: async (_: Record<string, unknown>, args: {username: string}, context: Context) => {
       const { username } = args;
 
-      return prisma.user({ username });
+      return context.prisma.user.findUnique({ where: {username} });
     },
   },
 };

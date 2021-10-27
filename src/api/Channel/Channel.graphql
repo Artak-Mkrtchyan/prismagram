@@ -1,0 +1,8 @@
+
+type Channel {
+  id: ID!
+  participants: [User!]!
+  messages: [Message!]!
+  createdAt: String
+  updatedAt: String
+}

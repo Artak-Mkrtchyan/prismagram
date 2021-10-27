@@ -3,7 +3,6 @@ import './env';
 import passport from 'passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { prisma } from '../generated/prisma-client';
 
 export const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

@@ -1,8 +1,13 @@
-import { prisma } from "../../../generated/prisma-client";
+import { Context } from "../../context";
+
 
 export default {
-  Comment: {
-    user: ({ id }) => prisma.comment({ id }).user(),
-    post: ({ id }) => prisma.comment({ id }).post(),
+  Comment:{
+    user: ({ id }: {id: string}, args: {}, context: Context) => {
+      return context.prisma.comment.findUnique({where: {id}}).user();
+    },
+    post: ({ id }: {id: string}, args: {}, context: Context) => {
+      return context.prisma.comment.findUnique({where: {id}}).post();
+    },
   },
 };

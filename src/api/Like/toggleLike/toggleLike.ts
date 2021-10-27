@@ -1,14 +1,14 @@
 import { isAuthenticated } from "../../../middlewares";
-import { prisma } from "../../../../generated/prisma-client";
+import { Context } from "../../../context";
 
 export default {
   Mutation: {
-    toggleLike: async (_, args, { request }) => {
-      isAuthenticated(request);
+    toggleLike: async (_: Record<string, unknown>, args: {postId: string}, context: Context) => {
+      isAuthenticated(context.req);
       const { postId } = args;
-      const { user } = request;
+      const { user } = context.req;
 
-      const filterOptions = {
+      const filterOptions =  {where: {
         AND: [
           {
             user: {
@@ -21,15 +21,15 @@ export default {
             }
           }
         ]
-      };
-
+      }}
       try {
-        const existingLike = await prisma.$exists.like(filterOptions);
+        const existingLike = await context.prisma.like.findMany(filterOptions);
 
         if (existingLike) {
-          await prisma.deleteManyLikes(filterOptions);
+          await context.prisma.like.deleteMany(filterOptions);
         } else {
-          await prisma.createLike({
+          await context.prisma.like.create({
+            data: {
             user: {
               connect: {
                 id: user.id
@@ -39,7 +39,7 @@ export default {
               connect: {
                 id: postId
               }
-            }
+            }}
           });
         }
         return true;

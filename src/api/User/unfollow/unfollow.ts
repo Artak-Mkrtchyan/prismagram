@@ -1,16 +1,16 @@
 import { isAuthenticated } from "../../../middlewares";
-import { prisma } from "../../../../generated/prisma-client";
+import { Context } from '../../../context';
 
 export default {
   Mutation: {
-    unfollow: async (_, args, { request }) => {
-      isAuthenticated(request);
+    unfollow: async (_: Record<string, unknown>, args: {id: string}, context: Context) => {
+      isAuthenticated(context.req);
 
       const { id } = args;
-      const { user } = request;
+      const { user } = context.req;
 
       try {
-        await prisma.updateUser({
+        await context.prisma.user.update({
           where: { id: user.id },
           data: {
             following: {

@@ -1,19 +1,20 @@
 import { isAuthenticated } from "../../../middlewares";
-import { prisma } from "../../../../generated/prisma-client";
+import { Context } from '../../../context';
 
 export default {
   Query: {
-    seeFeed: async (_, __, { request }) => {
-      isAuthenticated(request);
-      const { user } = request;
-      const following = await prisma.user({ id: user.id }).following();
-      return prisma.posts({
+    seeFeed: async (_: Record<string, unknown>, args: {term: string}, context: Context) => {
+      isAuthenticated(context.req);
+      const { user } = context.req;
+      const following = await context.prisma.user.findUnique({where: { id: user.id }}).following();
+      return  context.prisma.post.findMany({
         where: {
           user: {
-            id_in: [...following.map((user) => user.id), user.id],
+            id: {in: [...following.map((user) => user.id), user.id],}
           },
+        
         },
-        orderBy: "id_ASC",
+        orderBy: {createdAt: "desc"},
       });
     },
   },
