@@ -1,6 +1,6 @@
 import { Context } from '../../context';
 
-export default {
+export const resolvers = {
   Post: {
     isLiked: async (parent: any, _: any, context: Context) => {
       const { user } = context.req;

@@ -1,6 +1,6 @@
 import { Context } from '../../context';
 
-export default {
+export const resolvers = {
   Channel: {
     participants: ({ id }: { id: string }, args: {}, context: Context) =>
       context.prisma.channel.findUnique({ where: { id } }).participants(),

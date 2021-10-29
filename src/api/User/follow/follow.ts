@@ -1,7 +1,7 @@
 import { isAuthenticated } from '../../../middlewares';
 import { Context } from '../../../context';
 
-export default {
+export const resolvers = {
   Mutation: {
     follow: async (
       _: Record<string, unknown>,

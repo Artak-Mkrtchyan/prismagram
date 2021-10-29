@@ -1,7 +1,7 @@
 import { isAuthenticated } from '../../../middlewares';
 import { Context } from '../../../context';
 
-export default {
+export const resolvers = {
   Query: {
     seeChannel: async (
       _: Record<string, unknown>,
@@ -22,9 +22,8 @@ export default {
       });
       if (canSee) {
         return context.prisma.channel.findUnique({ where: { id } });
-      } 
-        throw Error("You can't see this");
-      
+      }
+      throw Error("You can't see this");
     },
   },
 };

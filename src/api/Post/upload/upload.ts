@@ -1,7 +1,7 @@
 import { isAuthenticated } from '../../../middlewares';
 import { Context } from '../../../context';
 
-export default {
+export const resolvers = {
   Mutation: {
     upload: async (
       _: Record<string, unknown>,
@@ -18,18 +18,17 @@ export default {
           location,
         },
       });
-      files.forEach(
-        async (file) =>
-          context.prisma.file.create({
-            data: {
-              url: file,
-              post: {
-                connect: {
-                  id: post.id,
-                },
+      files.forEach(async (file) =>
+        context.prisma.file.create({
+          data: {
+            url: file,
+            post: {
+              connect: {
+                id: post.id,
               },
             },
-          })
+          },
+        })
       );
 
       return post;

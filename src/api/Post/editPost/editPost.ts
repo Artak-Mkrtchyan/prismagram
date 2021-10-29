@@ -6,7 +6,7 @@ enum Action {
   DELETE = 'DELETE',
 }
 
-export default {
+export const resolvers = {
   Mutation: {
     editPost: async (
       _: Record<string, unknown>,
@@ -26,7 +26,8 @@ export default {
               data: { caption, location },
               where: { id },
             });
-          } if (action === Action.DELETE) {
+          }
+          if (action === Action.DELETE) {
             return await context.prisma.post.delete({ where: { id } });
           }
         } else {

@@ -1,7 +1,7 @@
 import { Context } from '../../../context';
 import { isAuthenticated } from '../../../middlewares';
 
-export default {
+export const resolvers = {
   Query: {
     me: async (_: any, __: any, context: Context) => {
       isAuthenticated(context.req);

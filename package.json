@@ -52,7 +52,6 @@
     "prisma": "prisma",
     "deploy": "prisma deploy",
     "generate": "prisma generate",
-    "prisma1": "yarn run deploy && yarn run generate",
     "dev": "nodemon --exec ts-node --project ./tsconfig.json --files src/server.ts",
     "tsc": "tsc",
     "lint": "eslint src/**/*.ts --fix",

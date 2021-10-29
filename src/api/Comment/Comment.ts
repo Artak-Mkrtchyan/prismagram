@@ -1,8 +1,10 @@
 import { Context } from '../../context';
 
-export default {
+export const resolvers = {
   Comment: {
-    user: ({ id }: { id: string }, args: {}, context: Context) => context.prisma.comment.findUnique({ where: { id } }).user(),
-    post: ({ id }: { id: string }, args: {}, context: Context) => context.prisma.comment.findUnique({ where: { id } }).post(),
+    user: ({ id }: { id: string }, args: {}, context: Context) =>
+      context.prisma.comment.findUnique({ where: { id } }).user(),
+    post: ({ id }: { id: string }, args: {}, context: Context) =>
+      context.prisma.comment.findUnique({ where: { id } }).post(),
   },
 };

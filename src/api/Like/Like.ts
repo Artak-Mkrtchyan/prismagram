@@ -1,6 +1,6 @@
 import { Context } from '../../context';
 
-export default {
+export const resolvers = {
   Like: {
     post: ({ id }: { id: string }, args: {}, context: Context) =>
       context.prisma.like.findUnique({ where: { id } }).post(),

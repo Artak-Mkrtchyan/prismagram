@@ -1,7 +1,7 @@
 import { isAuthenticated } from '../../../middlewares';
 import { Context } from '../../../context';
 
-export default {
+export const resolvers = {
   Query: {
     seeChannels: (_: Record<string, unknown>, args: {}, context: Context) => {
       isAuthenticated(context.req);

@@ -1,12 +1,13 @@
 import { Context } from '../../../context';
 
-export default {
+export const resolvers = {
   Query: {
     searchPost: async (
       _: Record<string, unknown>,
       args: { term: string },
       context: Context
-    ) => context.prisma.post.findMany({
+    ) =>
+      context.prisma.post.findMany({
         where: {
           OR: [
             {

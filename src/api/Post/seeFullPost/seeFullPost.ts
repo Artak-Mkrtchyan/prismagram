@@ -1,6 +1,6 @@
 import { Context } from '../../../context';
 
-export default {
+export const resolvers = {
   Query: {
     seeFullPost: async (
       _: Record<string, unknown>,

@@ -1,7 +1,7 @@
 import { Context } from '../../../context';
 import { generateSecret, sendSecretMail } from '../../../utils';
 
-export default {
+export const resolvers = {
   Mutation: {
     requestSecret: async (
       _: Record<string, unknown>,

@@ -1,7 +1,7 @@
 import { Context } from '../../../context';
 import { generateToken } from '../../../utils';
 
-export default {
+export const resolvers = {
   Mutation: {
     confirmSecret: async (
       _: Record<string, unknown>,
@@ -23,9 +23,8 @@ export default {
         });
 
         return generateToken(user.id);
-      } 
-        throw Error('Wrong email/secret combination ');
-      
+      }
+      throw Error('Wrong email/secret combination ');
     },
   },
 };
