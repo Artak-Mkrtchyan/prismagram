@@ -3,10 +3,9 @@ import './env';
 import passport from 'passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-
 export const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.JWT_SECRET
+  secretOrKey: process.env.JWT_SECRET,
 };
 
 const verifyUser = async (payload: any, done: any) => {
@@ -23,7 +22,7 @@ const verifyUser = async (payload: any, done: any) => {
 };
 
 export const authenticateJwt = (req: any, res: any, next: any) =>
-  passport.authenticate("jwt", { session: false }, (error, user) => {
+  passport.authenticate('jwt', { session: false }, (error, user) => {
     if (user) {
       req.user = user;
     }

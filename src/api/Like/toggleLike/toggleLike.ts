@@ -1,27 +1,33 @@
-import { isAuthenticated } from "../../../middlewares";
-import { Context } from "../../../context";
+import { isAuthenticated } from '../../../middlewares';
+import { Context } from '../../../context';
 
 export default {
   Mutation: {
-    toggleLike: async (_: Record<string, unknown>, args: {postId: string}, context: Context) => {
+    toggleLike: async (
+      _: Record<string, unknown>,
+      args: { postId: string },
+      context: Context
+    ) => {
       isAuthenticated(context.req);
       const { postId } = args;
       const { user } = context.req;
 
-      const filterOptions =  {where: {
-        AND: [
-          {
-            user: {
-              id: user.id
-            }
-          },
-          {
-            post: {
-              id: postId
-            }
-          }
-        ]
-      }}
+      const filterOptions = {
+        where: {
+          AND: [
+            {
+              user: {
+                id: user.id,
+              },
+            },
+            {
+              post: {
+                id: postId,
+              },
+            },
+          ],
+        },
+      };
       try {
         const existingLike = await context.prisma.like.findMany(filterOptions);
 
@@ -30,22 +36,23 @@ export default {
         } else {
           await context.prisma.like.create({
             data: {
-            user: {
-              connect: {
-                id: user.id
-              }
+              user: {
+                connect: {
+                  id: user.id,
+                },
+              },
+              post: {
+                connect: {
+                  id: postId,
+                },
+              },
             },
-            post: {
-              connect: {
-                id: postId
-              }
-            }}
           });
         }
         return true;
       } catch (error) {
         return false;
       }
-    }
-  }
+    },
+  },
 };

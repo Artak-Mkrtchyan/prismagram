@@ -1,9 +1,13 @@
-import { isAuthenticated } from "../../../middlewares";
+import { isAuthenticated } from '../../../middlewares';
 import { Context } from '../../../context';
 
 export default {
   Mutation: {
-    unfollow: async (_: Record<string, unknown>, args: {id: string}, context: Context) => {
+    unfollow: async (
+      _: Record<string, unknown>,
+      args: { id: string },
+      context: Context
+    ) => {
       isAuthenticated(context.req);
 
       const { id } = args;
@@ -15,15 +19,15 @@ export default {
           data: {
             following: {
               disconnect: {
-                id
-              }
-            }
-          }
+                id,
+              },
+            },
+          },
         });
         return true;
       } catch (error) {
         return false;
       }
-    }
-  }
+    },
+  },
 };

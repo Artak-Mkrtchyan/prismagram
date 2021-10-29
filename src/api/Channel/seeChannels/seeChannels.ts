@@ -1,4 +1,4 @@
-import { isAuthenticated } from "../../../middlewares";
+import { isAuthenticated } from '../../../middlewares';
 import { Context } from '../../../context';
 
 export default {
@@ -8,10 +8,12 @@ export default {
       const { user } = context.req;
       return context.prisma.channel.findMany({
         where: {
-          participants: {some: {
-            id: user.id,
+          participants: {
+            some: {
+              id: user.id,
+            },
           },
-        },}
+        },
       });
     },
   },

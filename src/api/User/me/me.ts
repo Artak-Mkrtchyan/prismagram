@@ -1,6 +1,5 @@
-
-import { Context } from "../../../context";
-import { isAuthenticated } from "../../../middlewares";
+import { Context } from '../../../context';
+import { isAuthenticated } from '../../../middlewares';
 
 export default {
   Query: {
@@ -8,7 +7,7 @@ export default {
       isAuthenticated(context.req);
 
       const { user } = context.req;
-      return await context.prisma.user.findUnique({where: { id: user.id }});
+      return await context.prisma.user.findUnique({ where: { id: user.id } });
     },
   },
 };

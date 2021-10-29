@@ -1,13 +1,12 @@
-import { Context } from "../../context";
-
+import { Context } from '../../context';
 
 export default {
-  Comment:{
-    user: ({ id }: {id: string}, args: {}, context: Context) => {
-      return context.prisma.comment.findUnique({where: {id}}).user();
+  Comment: {
+    user: ({ id }: { id: string }, args: {}, context: Context) => {
+      return context.prisma.comment.findUnique({ where: { id } }).user();
     },
-    post: ({ id }: {id: string}, args: {}, context: Context) => {
-      return context.prisma.comment.findUnique({where: {id}}).post();
+    post: ({ id }: { id: string }, args: {}, context: Context) => {
+      return context.prisma.comment.findUnique({ where: { id } }).post();
     },
   },
 };

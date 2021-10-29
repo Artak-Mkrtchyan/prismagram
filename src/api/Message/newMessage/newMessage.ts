@@ -1,17 +1,19 @@
-import { Context } from "../../../context";
+import { Context } from '../../../context';
 
 export default {
   Mutation: {
     newMessage: {
-      subscribe: (_: Record<string, unknown>, args: { channelId: string}, context: Context) => {
+      subscribe: (
+        _: Record<string, unknown>,
+        args: { channelId: string },
+        context: Context
+      ) => {
         const { channelId } = args;
         return context.prisma.message.findMany({
-          where: 
-              {
-                channel: { id: channelId },
-                }
-          })
-         ;
+          where: {
+            channel: { id: channelId },
+          },
+        });
       },
     },
   },
