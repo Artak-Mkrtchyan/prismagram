@@ -22,9 +22,9 @@ export default {
       });
       if (canSee) {
         return context.prisma.channel.findUnique({ where: { id } });
-      } else {
+      } 
         throw Error("You can't see this");
-      }
+      
     },
   },
 };

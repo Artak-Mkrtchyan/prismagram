@@ -6,11 +6,11 @@ import http from 'http';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 
+import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { resolvers, typeDefs } from './schema';
 import { uploadController, uploadMiddleware } from './upload';
 import { authenticateJwt } from './passport';
 import { createContext } from './context';
-import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 
 const PORT = process.env.PORT || 4000;
 

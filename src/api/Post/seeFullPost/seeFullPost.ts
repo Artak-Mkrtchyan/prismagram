@@ -8,7 +8,7 @@ export default {
       context: Context
     ) => {
       const { id } = args;
-      return await context.prisma.post.findUnique({ where: { id } });
+      return context.prisma.post.findUnique({ where: { id } });
     },
   },
 };

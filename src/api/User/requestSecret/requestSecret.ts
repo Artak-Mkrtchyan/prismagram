@@ -1,5 +1,6 @@
 import { Context } from '../../../context';
 import { generateSecret, sendSecretMail } from '../../../utils';
+
 export default {
   Mutation: {
     requestSecret: async (

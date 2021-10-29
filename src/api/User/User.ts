@@ -22,14 +22,12 @@ export default {
 
     followersCount: ({ id }: { id: string }, args: {}, context: Context) =>
       context.prisma.user.count({ where: { following: { none: { id } } } }),
-    fullName: (parent: any) => {
-      return `${parent.firstName} ${parent.lastName}`;
-    },
+    fullName: (parent: any) => `${parent.firstName} ${parent.lastName}`,
 
     isFollowing: async ({ id }: { id: string }, _: any, context: Context) => {
       const { user } = context.req;
       try {
-        return context.prisma.user.findMany({
+        return await context.prisma.user.findMany({
           where: {
             AND: [{ id: user.id }, { following: { some: { id } } }],
           },

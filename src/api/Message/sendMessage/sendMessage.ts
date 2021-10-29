@@ -30,7 +30,7 @@ export default {
       if (!channel) {
         throw Error('channel not found');
       }
-      return await context.prisma.message.create({
+      return context.prisma.message.create({
         data: {
           text: message,
           user: {

@@ -7,7 +7,7 @@ export default {
       isAuthenticated(context.req);
 
       const { user } = context.req;
-      return await context.prisma.user.findUnique({ where: { id: user.id } });
+      return context.prisma.user.findUnique({ where: { id: user.id } });
     },
   },
 };

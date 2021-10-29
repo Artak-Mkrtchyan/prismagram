@@ -20,7 +20,7 @@ export default {
       });
       files.forEach(
         async (file) =>
-          await await context.prisma.file.create({
+          context.prisma.file.create({
             data: {
               url: file,
               post: {

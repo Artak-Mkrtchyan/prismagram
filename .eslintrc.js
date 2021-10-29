@@ -25,5 +25,28 @@ module.exports = {
     'import',
     'prettier',
   ],
-  rules: {},
+  rules: {
+    'prettier/prettier': 'error',
+    'import/prefer-default-export': 'off',
+    'import/no-default-export': 'error',
+    'no-use-before-define': [
+      'error',
+      {
+        functions: false,
+        classes: true,
+        variables: true,
+      },
+    ],
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-use-before-define': [
+      'error',
+      {
+        functions: false,
+        classes: true,
+        variables: true,
+        typedefs: true,
+      },
+    ],
+    'import/no-extraneous-dependencies': 'off',
+  },
 };

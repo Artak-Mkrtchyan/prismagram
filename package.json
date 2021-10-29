@@ -13,6 +13,7 @@
     "express": "^4.17.1",
     "graphql": "^15.6.1",
     "graphql-tools": "^4.0.4",
+    "husky": "^7.0.4",
     "jsonwebtoken": "^8.5.1",
     "merge-graphql-schemas": "^1.7.6",
     "morgan": "^1.9.1",
@@ -49,13 +50,17 @@
   },
   "scripts": {
     "prisma": "prisma",
-    "eslint": "eslint",
     "deploy": "prisma deploy",
     "generate": "prisma generate",
     "prisma1": "yarn run deploy && yarn run generate",
     "dev": "nodemon --exec ts-node --project ./tsconfig.json --files src/server.ts",
     "tsc": "tsc",
-    "lint": "eslint --ext .ts --ignore-path .gitignore .",
+    "lint": "eslint src/**/*.ts --fix",
     "ts-node": "ts-node"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
   }
 }

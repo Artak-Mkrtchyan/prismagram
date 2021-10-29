@@ -13,10 +13,10 @@ const upload = multer({
     s3,
     acl: 'public-read',
     bucket: 'mitq-prismagram',
-    metadata: function (req, file, cb) {
+    metadata(req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
-    key: function (req, file, cb) {
+    key(req, file, cb) {
       cb(null, Date.now().toString());
     },
   }),

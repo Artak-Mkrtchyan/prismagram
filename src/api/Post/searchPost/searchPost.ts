@@ -6,8 +6,7 @@ export default {
       _: Record<string, unknown>,
       args: { term: string },
       context: Context
-    ) => {
-      return context.prisma.post.findMany({
+    ) => context.prisma.post.findMany({
         where: {
           OR: [
             {
@@ -22,7 +21,6 @@ export default {
             },
           ],
         },
-      });
-    },
+      }),
   },
 };
