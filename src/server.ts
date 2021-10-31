@@ -9,14 +9,11 @@ import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { resolvers, typeDefs } from './schema';
 import { uploadController, uploadMiddleware } from './upload';
-import { authenticateJwt } from './passport';
 import { createContext } from './context';
 
 const PORT = process.env.PORT || 4000;
 
 // app.use(logger("dev"));
-// apollo.applyMiddleware({app});
-// apollo.applyMiddleware(authenticateJwt);
 // app.post("/api/upload", uploadMiddleware, uploadController);
 
 async function startApolloServer(

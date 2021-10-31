@@ -13,7 +13,7 @@ export const resolvers = {
       args: { id: string; caption: string; location: string; action: Action },
       context: Context
     ) => {
-      // isAuthenticated(context.req);
+      isAuthenticated(context);
       const { id, caption, location, action } = args;
       console.log(id, caption, location, action);
       // const { user } = context.req;

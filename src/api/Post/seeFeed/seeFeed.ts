@@ -8,7 +8,7 @@ export const resolvers = {
       args: { term: string },
       context: Context
     ) => {
-      isAuthenticated(context.req);
+      isAuthenticated(context);
       const { user } = context.req;
       const following = await context.prisma.user
         .findUnique({ where: { id: user.id } })

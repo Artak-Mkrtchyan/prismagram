@@ -21,8 +21,9 @@ export const resolvers = {
             loginSecret: '',
           },
         });
+        const token = generateToken(user.id);
 
-        return generateToken(user.id);
+        return token;
       }
       throw Error('Wrong email/secret combination ');
     },

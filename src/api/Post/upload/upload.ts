@@ -8,7 +8,7 @@ export const resolvers = {
       args: { caption: string; files: string[]; location: string },
       context: Context
     ) => {
-      isAuthenticated(context.req);
+      isAuthenticated(context);
       const { user } = context.req;
       const { caption, files, location } = args;
       const post = await context.prisma.post.create({

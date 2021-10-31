@@ -8,7 +8,7 @@ export const resolvers = {
       args: { channelId?: string; message: string; toId?: string },
       context: Context
     ) => {
-      isAuthenticated(context.req);
+      isAuthenticated(context);
       const { user } = context.req;
       const { channelId, message, toId } = args;
       let channel;

@@ -4,7 +4,7 @@ import { Context } from '../../../context';
 export const resolvers = {
   Query: {
     seeChannels: (_: Record<string, unknown>, args: {}, context: Context) => {
-      isAuthenticated(context.req);
+      isAuthenticated(context);
       const { user } = context.req;
       return context.prisma.channel.findMany({
         where: {

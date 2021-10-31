@@ -8,9 +8,9 @@ export const resolvers = {
       args: { text: string; postId: string },
       context: Context
     ) => {
-      // isAuthenticated(context.req);
+      isAuthenticated(context);
       const { text, postId } = args;
-      // const { user } = context.req;
+      const { user } = context.req;
 
       const comment = await context.prisma.comment.create({
         data: {

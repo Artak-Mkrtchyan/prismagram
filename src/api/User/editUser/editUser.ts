@@ -15,7 +15,7 @@ export const resolvers = {
       },
       context: Context
     ) => {
-      isAuthenticated(context.req);
+      isAuthenticated(context);
 
       const { username, email, firstName, lastName, bio, avatar } = args;
       const { user } = context.req;

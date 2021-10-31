@@ -8,7 +8,7 @@ export const resolvers = {
       args: { id: string },
       context: Context
     ) => {
-      isAuthenticated(context.req);
+      isAuthenticated(context);
       const { id } = args;
       const { user } = context.req;
       const canSee = await context.prisma.channel.findFirst({
