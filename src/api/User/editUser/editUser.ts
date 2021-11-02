@@ -18,7 +18,7 @@ export const resolvers = {
       isAuthenticated(context);
 
       const { username, email, firstName, lastName, bio, avatar } = args;
-      const { user } = context.req;
+      const { user } = context;
 
       return context.prisma.user.update({
         where: { id: user.id },

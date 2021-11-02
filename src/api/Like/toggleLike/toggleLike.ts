@@ -10,7 +10,7 @@ export const resolvers = {
     ) => {
       isAuthenticated(context);
       const { postId } = args;
-      const { user } = context.req;
+      const { user } = context;
 
       const filterOptions = {
         where: {

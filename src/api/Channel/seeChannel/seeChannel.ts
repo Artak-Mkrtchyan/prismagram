@@ -10,7 +10,7 @@ export const resolvers = {
     ) => {
       isAuthenticated(context);
       const { id } = args;
-      const { user } = context.req;
+      const { user } = context;
       const canSee = await context.prisma.channel.findFirst({
         where: {
           participants: {

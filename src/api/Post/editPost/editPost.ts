@@ -16,7 +16,7 @@ export const resolvers = {
       isAuthenticated(context);
       const { id, caption, location, action } = args;
       console.log(id, caption, location, action);
-      // const { user } = context.req;
+      // const { user } = context;
       const post = await context.prisma.post.findUnique({ where: { id } });
       console.log(post);
       try {

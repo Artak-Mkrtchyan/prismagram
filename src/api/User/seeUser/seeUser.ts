@@ -8,8 +8,17 @@ export const resolvers = {
       context: Context
     ) => {
       const { username } = args;
-
-      return context.prisma.user.findUnique({ where: { username } });
+      // console.log('username', username);
+      try {
+        const user = await context.prisma.user.findUnique({
+          where: { username },
+        });
+        // console.log(user);
+        return user;
+      } catch (e) {
+        console.log(e);
+        return null;
+      }
     },
   },
 };

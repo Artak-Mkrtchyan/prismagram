@@ -3,21 +3,19 @@ import { Context } from '../../context';
 export const resolvers = {
   Post: {
     isLiked: async (parent: any, _: any, context: Context) => {
-      const { user } = context.req;
+      const { user } = context;
       const { id } = parent;
 
-      return context.prisma.like.findMany({
+      const like = await context.prisma.like.findMany({
         where: {
-          AND: [
-            { user: { id: user.id } },
-            {
-              post: {
-                id,
-              },
-            },
-          ],
+          user: { id: user.id },
+          post: {
+            id,
+          },
         },
       });
+
+      return like !== [];
     },
     likeCount: ({ id }: { id: string }, _: any, context: Context) =>
       context.prisma.like.count({

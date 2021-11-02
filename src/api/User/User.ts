@@ -50,21 +50,24 @@ export const resolvers = {
       context: Context
     ) => context.prisma.user.count({ where: { following: { none: { id } } } }),
     fullName: (parent: any) => `${parent.firstName} ${parent.lastName}`,
-
     isFollowing: async ({ id }: { id: string }, _: any, context: Context) => {
-      const { user } = context.req;
+      const { user } = context;
       try {
-        return await context.prisma.user.findMany({
+        const followers = await context.prisma.user.findMany({
           where: {
-            AND: [{ id: user.id }, { following: { some: { id } } }],
+            id: user.id,
+            following: { some: { id } },
           },
         });
+        console.log(followers);
+        return followers !== [];
       } catch (err) {
-        return false;
+        console.log(err);
+        return err;
       }
     },
     isSelf: (parent: Record<string, unknown>, _: any, context: Context) => {
-      const { user } = context.req;
+      const { user } = context;
       const { id: parentId } = parent;
       return user.id === parentId;
     },

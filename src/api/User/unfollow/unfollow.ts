@@ -11,7 +11,7 @@ export const resolvers = {
       isAuthenticated(context);
 
       const { id } = args;
-      const { user } = context.req;
+      const { user } = context;
 
       try {
         await context.prisma.user.update({

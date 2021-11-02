@@ -9,7 +9,7 @@ export const resolvers = {
       context: Context
     ) => {
       isAuthenticated(context);
-      const { user } = context.req;
+      const { user } = context;
       const { channelId, message, toId } = args;
       let channel;
       if (channelId === undefined) {
