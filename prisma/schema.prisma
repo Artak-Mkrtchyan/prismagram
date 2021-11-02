@@ -12,23 +12,25 @@ generator client {
 }
 
 model User {
-  id          String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  avatar      String    @default(value: "https://cdn0.iconfinder.com/data/icons/set-ui-app-android/32/8-512.png")
-  username    String    @unique
-  email       String    @unique
-  firstName   String    @default(value: "")
-  lastName    String
-  bio         String
-  following   User[]    @relation(name: "FollowRelation")
-  followers   User[]    @relation(name: "FollowRelation")
-  posts       Post[]
-  likes       Like[]
-  comments    Comment[]
-  channels    Channel[]
-  loginSecret String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  Message     Message[]
+  id            String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  avatar        String    @default(value: "https://cdn0.iconfinder.com/data/icons/set-ui-app-android/32/8-512.png")
+  username      String    @unique
+  email         String    @unique
+  firstName     String    @default(value: "")
+  lastName      String
+  bio           String
+  following     User[]    @relation("UserFollows", fields: [followingIDs])
+  followingIDs  String[]  @db.Array(ObjectId)
+  followers     User[]    @relation("UserFollows", fields: [followedByIDs])
+  followedByIDs String[]  @db.Array(ObjectId)
+  posts         Post[]
+  likes         Like[]
+  comments      Comment[]
+  channels      Channel[]
+  loginSecret   String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  message       Message[]
 }
 
 model Post {

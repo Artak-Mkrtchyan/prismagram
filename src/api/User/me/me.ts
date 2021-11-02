@@ -8,7 +8,9 @@ export const resolvers = {
 
       const { user } = context;
 
-      const me = context.prisma.user.findUnique({ where: { id: user.id } });
+      const me = await context.prisma.user.findUnique({
+        where: { id: user.id },
+      });
 
       return me;
     },

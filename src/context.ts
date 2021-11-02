@@ -19,9 +19,10 @@ export const getUser = async (token: string) => {
     }
 
     const SECRET = process.env.JWT_SECRET as string;
-    const { id } = (await jwt.verify(token, SECRET)) as Record<string, string>;
-
-    const user = await prisma.user.findUnique({ where: { id } });
+    const user = (await jwt.verify(
+      token.replace('Bearer ', ''),
+      SECRET
+    )) as Record<string, string>;
 
     if (user) {
       return user;
@@ -29,12 +30,14 @@ export const getUser = async (token: string) => {
 
     return null;
   } catch (e) {
+    console.error(e);
     return null;
   }
 };
 
 export async function createContext(context: any) {
-  const token = context.req.headers.token || '';
+  const token = context.req.headers.authorization || '';
+
   const user = await getUser(token);
 
   return {

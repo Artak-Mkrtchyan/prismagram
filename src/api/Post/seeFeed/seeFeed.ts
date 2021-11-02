@@ -8,19 +8,30 @@ export const resolvers = {
       args: { term: string },
       context: Context
     ) => {
-      isAuthenticated(context);
-      const { user } = context.req;
-      const following = await context.prisma.user
-        .findUnique({ where: { id: user.id } })
-        .following();
-      return context.prisma.post.findMany({
-        where: {
-          user: {
-            id: { in: [...following.map((user) => user.id), user.id] },
+      try {
+        isAuthenticated(context);
+        const { user } = context;
+
+        const following = await context.prisma.user
+          .findUnique({
+            where: { id: user.id },
+          })
+          .following();
+
+        return await context.prisma.post.findMany({
+          where: {
+            user: {
+              id: {
+                in: [...following.map((follower) => follower.id), user.id],
+              },
+            },
           },
-        },
-        orderBy: { createdAt: 'desc' },
-      });
+          orderBy: { createdAt: 'desc' },
+        });
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
     },
   },
 };

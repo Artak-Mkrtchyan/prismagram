@@ -9,9 +9,8 @@ export const resolvers = {
       context: Context
     ) => {
       isAuthenticated(context);
-
       const { id } = args;
-      const { user } = context.req;
+      const { user } = context;
 
       try {
         await context.prisma.user.update({
@@ -26,6 +25,7 @@ export const resolvers = {
         });
         return true;
       } catch (error) {
+        console.log(error);
         return false;
       }
     },
