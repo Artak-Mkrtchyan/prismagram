@@ -1,15 +1,15 @@
 import './env';
 // import './passport';
-import logger from 'morgan';
 
 import http from 'http';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
-import { resolvers, typeDefs } from './schema';
-import { uploadController, uploadMiddleware } from './upload';
-import { createContext } from './context';
+import { logger } from 'src/logger';
+import { resolvers, typeDefs } from 'src/schema';
+import { uploadController, uploadMiddleware } from 'src/upload';
+import { createContext } from 'src/context';
 
 const PORT = process.env.PORT || 4000;
 
@@ -34,7 +34,7 @@ async function startApolloServer(
   await new Promise<void>((resolve) =>
     httpServer.listen({ port: PORT }, resolve)
   );
-  console.log(
+  logger.info(
     `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
   );
 }

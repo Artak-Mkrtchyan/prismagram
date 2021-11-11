@@ -1,5 +1,5 @@
-import { isAuthenticated } from '../../../middlewares';
-import { Context } from '../../../context';
+import { isAuthenticated } from 'src/middlewares';
+import { Context } from 'src/context';
 
 export const resolvers = {
   Mutation: {

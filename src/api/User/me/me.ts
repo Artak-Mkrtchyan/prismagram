@@ -1,5 +1,5 @@
-import { Context } from '../../../context';
-import { isAuthenticated } from '../../../middlewares';
+import { Context } from 'src/context';
+import { isAuthenticated } from 'src/middlewares';
 
 export const resolvers = {
   Query: {

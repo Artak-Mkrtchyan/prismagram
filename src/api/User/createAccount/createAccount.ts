@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { Context } from '../../../context';
+import { Context } from 'src/context';
 
 export const resolvers = {
   Mutation: {

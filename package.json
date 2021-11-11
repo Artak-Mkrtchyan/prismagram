@@ -55,7 +55,7 @@
     "prisma": "prisma",
     "deploy": "prisma deploy",
     "generate": "prisma generate",
-    "dev": "nodemon --exec ts-node --project ./tsconfig.json --files src/server.ts",
+    "dev": "nodemon --exec NODE_PATH=./ ts-node --project ./tsconfig.json --files src/server.ts",
     "tsc": "tsc",
     "lint": "eslint src/**/*.ts --fix",
     "ts-node": "ts-node"

@@ -1,5 +1,5 @@
-import { Context } from '../../../context';
-import { generateSecret, sendSecretMail } from '../../../utils';
+import { Context } from 'src/context';
+import { generateSecret, sendSecretMail } from 'src/utils';
 
 export const resolvers = {
   Mutation: {

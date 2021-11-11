@@ -1,5 +1,6 @@
-import { isAuthenticated } from '../../../middlewares';
-import { Context } from '../../../context';
+import { isAuthenticated } from 'src/middlewares';
+import { Context } from 'src/context';
+import { logger } from 'src/logger';
 
 export const resolvers = {
   Mutation: {
@@ -25,7 +26,7 @@ export const resolvers = {
         });
         return true;
       } catch (error) {
-        console.log(error);
+        logger.error(error);
         return false;
       }
     },

@@ -1,5 +1,6 @@
-import { isAuthenticated } from '../../../middlewares';
-import { Context } from '../../../context';
+import { isAuthenticated } from 'src/middlewares';
+import { Context } from 'src/context';
+import { logger } from 'src/logger';
 
 enum Action {
   EDIT = 'EDIT',
@@ -15,10 +16,10 @@ export const resolvers = {
     ) => {
       isAuthenticated(context);
       const { id, caption, location, action } = args;
-      console.log(id, caption, location, action);
+
       // const { user } = context;
       const post = await context.prisma.post.findUnique({ where: { id } });
-      console.log(post);
+
       try {
         if (post) {
           if (action === Action.EDIT) {
@@ -34,7 +35,7 @@ export const resolvers = {
           throw Error("You can't do that");
         }
       } catch (e) {
-        console.log('Error', e);
+        logger.error(e);
       }
       return post;
     },

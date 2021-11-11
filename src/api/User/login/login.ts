@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { UserInputError } from 'apollo-server-errors';
-import { Context } from '../../../context';
-import { generateToken } from '../../../utils';
+import { Context } from 'src/context';
+import { generateToken } from 'src/utils';
 
 export const resolvers = {
   Mutation: {

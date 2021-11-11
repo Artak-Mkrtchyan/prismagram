@@ -1,4 +1,5 @@
-import { Context } from '../../../context';
+import { Context } from 'src/context';
+import { logger } from 'src/logger';
 
 export const resolvers = {
   Query: {
@@ -16,7 +17,7 @@ export const resolvers = {
 
         return user;
       } catch (e) {
-        console.log(e);
+        logger.error(e);
         return null;
       }
     },
