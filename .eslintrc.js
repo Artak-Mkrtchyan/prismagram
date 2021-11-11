@@ -26,6 +26,7 @@ module.exports = {
     'prettier',
   ],
   rules: {
+    'no-console': 'error',
     'prettier/prettier': 'error',
     'import/prefer-default-export': 'off',
     'import/no-default-export': 'error',

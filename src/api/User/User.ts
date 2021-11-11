@@ -59,10 +59,8 @@ export const resolvers = {
             following: { some: { id } },
           },
         });
-        console.log(followers);
         return followers !== [];
       } catch (err) {
-        console.log(err);
         return err;
       }
     },

@@ -16,7 +16,7 @@ export const resolvers = {
         data: {
           user: {
             connect: {
-              id: '617451b3ed8c38a1185fc7cc',
+              id: user.id,
             },
           },
           post: {

@@ -1,7 +1,6 @@
 import './env';
 
 import { PrismaClient } from '@prisma/client';
-import { AuthenticationError } from 'apollo-server-errors';
 import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
@@ -30,7 +29,6 @@ export const getUser = async (token: string) => {
 
     return null;
   } catch (e) {
-    console.error(e);
     return null;
   }
 };

@@ -1,6 +1,7 @@
 type Mutation {
   createAccount(
     username: String!
+    password: String!
     email: String!
     firstName: String
     lastName: String

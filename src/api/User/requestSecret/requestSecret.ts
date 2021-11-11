@@ -11,16 +11,12 @@ export const resolvers = {
       const { email } = args;
       const loginSecret = generateSecret();
       try {
-        console.log('email', email, loginSecret);
-        // if you want to get email set the sgTransport options
-        // await sendSecretMail(email, loginSecret);
         await context.prisma.user.update({
           data: { loginSecret },
           where: { email },
         });
         return true;
       } catch (error) {
-        console.log(error);
         return false;
       }
     },

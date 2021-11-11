@@ -4,15 +4,19 @@ import { isAuthenticated } from '../../../middlewares';
 export const resolvers = {
   Query: {
     me: async (_: any, __: any, context: Context) => {
-      isAuthenticated(context);
+      try {
+        isAuthenticated(context);
 
-      const { user } = context;
+        const { user } = context;
 
-      const me = await context.prisma.user.findUnique({
-        where: { id: user.id },
-      });
+        const me = await context.prisma.user.findUnique({
+          where: { id: user.id },
+        });
 
-      return me;
+        return me;
+      } catch (e) {
+        return e;
+      }
     },
   },
 };
