@@ -6,7 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "@prisma/client": "^3.3.0",
-    "apollo-server-core": "^3.4.0",
+    "apollo-server-core": "^3.10.1",
     "apollo-server-express": "^3.4.0",
     "aws-sdk": "^2.1000.0",
     "bcrypt": "^5.0.1",
